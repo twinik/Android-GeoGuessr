@@ -32,9 +32,11 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
             LatLng casa = new LatLng(-34.59879786959077, -58.45023338836409);
             googleMap.addMarker(new MarkerOptions().position(casa).title("Marker en casa"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(casa));
+            googleMap.getUiSettings().setAllGesturesEnabled(true);
         }
     };
 

@@ -64,7 +64,7 @@ public class NameFragment extends PrimaryFragment {
 
             actividadContenedora.EnviarMensaje(strNombre);
 
-            actividadContenedora.irAFragmentGame();
+            actividadContenedora.irAFragmentObjective();
         }
     };
 

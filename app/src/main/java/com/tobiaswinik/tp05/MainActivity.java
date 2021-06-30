@@ -10,12 +10,14 @@ import android.os.Bundle;
 import com.tobiaswinik.tp05.fragments.GameFragment;
 import com.tobiaswinik.tp05.fragments.MapsFragment;
 import com.tobiaswinik.tp05.fragments.NameFragment;
+import com.tobiaswinik.tp05.fragments.ObjectiveFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     MapsFragment fragmentMaps;
     NameFragment fragmentName;
     GameFragment fragmentGame;
+    ObjectiveFragment fragmentObjective;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentName = new NameFragment();
         fragmentMaps = new MapsFragment();
         fragmentGame = new GameFragment();
+        fragmentObjective = new ObjectiveFragment();
     }
 
     public void reemplazarFragment(Fragment fragmento){
@@ -51,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void EnviarMensaje(String strMensaje){
-        fragmentGame.setMensaje(strMensaje);
+        fragmentObjective.setMensaje(strMensaje);
     }
 
-    public void irAFragmentMaps(){
-        reemplazarFragment(fragmentMaps);
+    public void irAFragmentObjective(){
+        reemplazarFragment(fragmentObjective, true);
     }
 
     public void irAFragmentGame(){

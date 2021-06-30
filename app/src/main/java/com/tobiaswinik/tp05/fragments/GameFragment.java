@@ -16,11 +16,9 @@ import com.tobiaswinik.tp05.R;
 public class GameFragment extends PrimaryFragment {
 
     View layoutRoot;
-    TextView tvNombre;
-    String strNombreMostrado;
 
     public GameFragment() {
-        strNombreMostrado = "";
+
     }
 
 
@@ -32,8 +30,6 @@ public class GameFragment extends PrimaryFragment {
             layoutRoot = inflater.inflate(R.layout.fragment_juego, container, false);
             ObtenerReferencias();
         }
-
-        tvNombre.setText(strNombreMostrado);
 
         SetearListeners();
 
@@ -47,14 +43,10 @@ public class GameFragment extends PrimaryFragment {
     }
 
     private void ObtenerReferencias() {
-        tvNombre = (TextView) layoutRoot.findViewById(R.id.tvNombre);
+
     }
 
-    public void setMensaje(String strMensaje){
-        strNombreMostrado = strMensaje;
-        if (layoutRoot != null){
-            tvNombre.setText(strNombreMostrado);
-        }
+    public void ParseandoJSON(){
 
     }
 }

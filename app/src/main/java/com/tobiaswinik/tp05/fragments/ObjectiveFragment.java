@@ -4,18 +4,27 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.tobiaswinik.tp05.MainActivity;
 import com.tobiaswinik.tp05.R;
 
 public class ObjectiveFragment extends PrimaryFragment {
 
     View layoutRoot;
+    Button btnComenzar, btnRanking;
+    ListView lvRanking;
+    TextView tvNombre;
+    String strNombreMostrado;
 
     public ObjectiveFragment() {
-        // Required empty public constructor
+        strNombreMostrado = "";
     }
 
 
@@ -25,20 +34,43 @@ public class ObjectiveFragment extends PrimaryFragment {
         // Inflate the layout for this fragment
         if (layoutRoot == null){
             layoutRoot = inflater.inflate(R.layout.fragment_objective, container, false);
+            ObtenerReferencias();
+        }
+        SetearListeners();
+        if (layoutRoot != null){
+            Log.d("Test", strNombreMostrado);
+            tvNombre.setText("Buuenas " + strNombreMostrado);
         }
 
-        ObtenerReferencias();
-
-        SetearListeners();
+        this.setearTitulo("Objetivo");
 
         return layoutRoot;
     }
 
     private void ObtenerReferencias() {
-
+        btnComenzar = (Button) layoutRoot.findViewById(R.id.btnComenzar);
+        btnRanking = (Button) layoutRoot.findViewById(R.id.btnRanking);
+        lvRanking = (ListView) layoutRoot.findViewById(R.id.lvRanking);
+        tvNombre = (TextView) layoutRoot.findViewById(R.id.tvNombre);
     }
 
     private void SetearListeners() {
+        btnComenzar.setOnClickListener(btnComenzar_Click);
+    }
+
+    View.OnClickListener btnComenzar_Click = new View.OnClickListener() {
+        @Override
+        public void onClick(View V){
+            MainActivity actividadContenedora = (MainActivity) getActivity();
+            actividadContenedora.irAFragmentGame();
+        }
+    };
+
+    public void setMensaje(String strMensaje){
+        strNombreMostrado = strMensaje;
+        if (layoutRoot != null){
+            tvNombre.setText(strNombreMostrado);
+        }
 
     }
 }
