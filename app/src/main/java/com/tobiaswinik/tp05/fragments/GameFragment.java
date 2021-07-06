@@ -52,7 +52,6 @@ public class GameFragment extends PrimaryFragment {
     int jugadas = 0;
 
     public GameFragment() {
-
     }
 
 
