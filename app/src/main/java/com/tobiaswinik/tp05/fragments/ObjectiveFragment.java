@@ -50,12 +50,12 @@ public class ObjectiveFragment extends PrimaryFragment {
     private void ObtenerReferencias() {
         btnComenzar = (Button) layoutRoot.findViewById(R.id.btnComenzar);
         btnRanking = (Button) layoutRoot.findViewById(R.id.btnRanking);
-        lvRanking = (ListView) layoutRoot.findViewById(R.id.lvRanking);
         tvNombre = (TextView) layoutRoot.findViewById(R.id.tvNombre);
     }
 
     private void SetearListeners() {
         btnComenzar.setOnClickListener(btnComenzar_Click);
+        btnRanking.setOnClickListener(btnRanking_Click);
     }
 
     View.OnClickListener btnComenzar_Click = new View.OnClickListener() {
@@ -63,6 +63,14 @@ public class ObjectiveFragment extends PrimaryFragment {
         public void onClick(View V){
             MainActivity actividadContenedora = (MainActivity) getActivity();
             actividadContenedora.irAFragmentGame();
+        }
+    };
+
+    View.OnClickListener btnRanking_Click = new View.OnClickListener() {
+        @Override
+        public void onClick(View V){
+            MainActivity actividadContenedora = (MainActivity) getActivity();
+            actividadContenedora.irAFragmentRanking();
         }
     };
 

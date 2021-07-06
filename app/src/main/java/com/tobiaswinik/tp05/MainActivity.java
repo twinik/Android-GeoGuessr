@@ -11,12 +11,13 @@ import com.tobiaswinik.tp05.fragments.GameFragment;
 import com.tobiaswinik.tp05.fragments.MapsFragment;
 import com.tobiaswinik.tp05.fragments.NameFragment;
 import com.tobiaswinik.tp05.fragments.ObjectiveFragment;
+import com.tobiaswinik.tp05.fragments.RankingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    MapsFragment fragmentMaps;
     NameFragment fragmentName;
     GameFragment fragmentGame;
+    RankingFragment fragmentRanking;
     ObjectiveFragment fragmentObjective;
 
     @Override
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void CrearFragments() {
         fragmentName = new NameFragment();
-        fragmentMaps = new MapsFragment();
+        fragmentRanking = new RankingFragment();
         fragmentGame = new GameFragment();
         fragmentObjective = new ObjectiveFragment();
     }
@@ -62,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irAFragmentGame(){
-        reemplazarFragment(fragmentGame);
+        reemplazarFragment(fragmentGame, true);
+    }
+
+    public void irAFragmentRanking(){
+        reemplazarFragment(fragmentRanking, true);
     }
 
 }
