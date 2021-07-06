@@ -126,7 +126,6 @@ public class GameFragment extends PrimaryFragment {
             MainActivity actividadContenedora = (MainActivity) getActivity();
             SystemClock.sleep(3000);
             actividadContenedora.irAFragmentRanking();
-
         }
     }
 
