@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.tobiaswinik.tp05.MainActivity;
 import com.tobiaswinik.tp05.R;
+import com.tobiaswinik.tp05.Sesion;
 
 public class NameFragment extends PrimaryFragment {
 
@@ -60,9 +61,9 @@ public class NameFragment extends PrimaryFragment {
 
             strNombre = edtNombre.getText().toString();
 
-            Log.d("Test", strNombre);
+            Sesion.nombreActual = strNombre;
 
-            actividadContenedora.EnviarMensaje(strNombre);
+            Log.d("Test", strNombre);
 
             actividadContenedora.irAFragmentObjective();
         }

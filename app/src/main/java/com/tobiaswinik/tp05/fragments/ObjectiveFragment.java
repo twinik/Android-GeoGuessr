@@ -2,8 +2,6 @@ package com.tobiaswinik.tp05.fragments;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +53,7 @@ public class ObjectiveFragment extends PrimaryFragment {
 
     private void SetearListeners() {
         btnComenzar.setOnClickListener(btnComenzar_Click);
-        btnRanking.setOnClickListener(btnRanking_Click);
+        //btnRanking.setOnClickListener(btnRanking_Click);
     }
 
     View.OnClickListener btnComenzar_Click = new View.OnClickListener() {
@@ -66,13 +64,13 @@ public class ObjectiveFragment extends PrimaryFragment {
         }
     };
 
-    View.OnClickListener btnRanking_Click = new View.OnClickListener() {
+    /*View.OnClickListener btnRanking_Click = new View.OnClickListener() {
         @Override
         public void onClick(View V){
             MainActivity actividadContenedora = (MainActivity) getActivity();
-            actividadContenedora.irAFragmentRanking();
+            actividadContenedora.irAFragmentRanking(listaJugadores);
         }
-    };
+    };*/
 
     public void setMensaje(String strMensaje){
         strNombreMostrado = strMensaje;

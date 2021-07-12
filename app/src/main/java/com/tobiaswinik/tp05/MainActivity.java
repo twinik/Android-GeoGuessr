@@ -7,11 +7,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.tobiaswinik.tp05.entities.Jugador;
 import com.tobiaswinik.tp05.fragments.GameFragment;
-import com.tobiaswinik.tp05.fragments.MapsFragment;
 import com.tobiaswinik.tp05.fragments.NameFragment;
 import com.tobiaswinik.tp05.fragments.ObjectiveFragment;
 import com.tobiaswinik.tp05.fragments.RankingFragment;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,10 +54,6 @@ public class MainActivity extends AppCompatActivity {
             transaction.addToBackStack(null);
         }
         transaction.commit();
-    }
-
-    public void EnviarMensaje(String strMensaje){
-        fragmentObjective.setMensaje(strMensaje);
     }
 
     public void irAFragmentObjective(){

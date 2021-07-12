@@ -1,17 +1,17 @@
 package com.tobiaswinik.tp05.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,7 +26,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tobiaswinik.tp05.MainActivity;
 import com.tobiaswinik.tp05.R;
+import com.tobiaswinik.tp05.Sesion;
 import com.tobiaswinik.tp05.entities.Ciudad;
+import com.tobiaswinik.tp05.entities.Jugador;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,18 +43,53 @@ public class GameFragment extends PrimaryFragment {
 
     View layoutRoot;
     Button btn01, btn02, btn03, btn04;
+    TextView tvTime;
     private MapView mMapView;
     private GoogleMap googleMap;
-    Type ciudadType = new TypeToken<ArrayList<Ciudad>>() {}.getType();
-    ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>();
-    ArrayList<Ciudad> ciudadesRandom = new ArrayList<Ciudad>();
-    TareaAsincronicaObtenerPais tareaAsync = new TareaAsincronicaObtenerPais();
+    Type ciudadType;
+    ArrayList<Ciudad> ciudades;
+    ArrayList<Ciudad> ciudadesRandom;
+    TareaAsincronicaObtenerPais tareaAsync;
     Ciudad ciudadCorrecta;
-    int puntaje = 0;
-    int jugadas = 0;
+    int jugadas;
+    Jugador playerActual;
+    CountDownTimer contador;
+    int duration;
+
 
     public GameFragment() {
+        ciudadType = new TypeToken<ArrayList<Ciudad>>() {}.getType();
+        ciudades = new ArrayList<Ciudad>();
+        ciudadesRandom = new ArrayList<Ciudad>();
+        tareaAsync = new TareaAsincronicaObtenerPais();
+        jugadas = 0;
+        Sesion.listaPlayers = new ArrayList<Jugador>();
+        playerActual = new Jugador();
+        duration = 5;
+
+        contador = new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (tvTime != null){
+                    tvTime.setText("00 : 0" + duration);
+                }
+                duration--;
+                Log.d("AccesoAPI", String.valueOf(duration));
+            }
+
+            @Override
+            public void onFinish() {
+                if (tvTime != null){
+                    duration = 5;
+                    Toast.makeText(getActivity(), "SE ACABO EL TIEMPO", Toast.LENGTH_SHORT).show();
+                    SystemClock.sleep(1000);
+                    Juego();
+                }
+
+            }
+        };
     }
+
 
 
     @Override
@@ -80,6 +117,7 @@ public class GameFragment extends PrimaryFragment {
         return layoutRoot;
     }
 
+
     private void SetearListeners() {
         btn01.setOnClickListener(btnCiudad_Click);
         btn02.setOnClickListener(btnCiudad_Click);
@@ -95,15 +133,16 @@ public class GameFragment extends PrimaryFragment {
 
             btnPresionado = (Button) v;
             strCiudadClickeada = btnPresionado.getText().toString();
-
+            contador.cancel();
+            duration = 5;
             if (strCiudadClickeada == ciudadCorrecta.getName()){
-                Toast.makeText(getActivity(), "¡Muy bien!", Toast.LENGTH_SHORT).show();
-                puntaje++;
-                Log.d("AccesoAPI", String.valueOf(puntaje));
+                Toast.makeText(getActivity(), "¡MUY BIEN!", Toast.LENGTH_SHORT).show();
+                playerActual.Puntaje++;
+                Log.d("AccesoAPI", String.valueOf(playerActual.Puntaje));
                 Juego();
             }
             else {
-               Toast.makeText(getActivity(), "Pifiaste hermano", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getActivity(), "PIFIASTE HERMANO", Toast.LENGTH_SHORT).show();
                Juego();
             }
         }
@@ -120,15 +159,23 @@ public class GameFragment extends PrimaryFragment {
         Log.d("AccesoAPI", ciudadCorrecta.toString());
         mMapView.getMapAsync(mMapView_getMapAsync);
         jugadas++;
+        Log.d("AccesoAPI", "Jugadas: " + jugadas);
+
         if (jugadas > 10){
-            Toast.makeText(getActivity(), "Juego terminado", Toast.LENGTH_SHORT).show();
+            playerActual.Nombre = Sesion.nombreActual;
+            if (googleMap != null){
+                googleMap.clear();
+                contador.cancel();
+            }
+            Toast.makeText(getActivity(), "JUEGO TERMINADO, YENDO A RESULTADOS", Toast.LENGTH_SHORT).show();
             MainActivity actividadContenedora = (MainActivity) getActivity();
-            SystemClock.sleep(3000);
+            SystemClock.sleep(2000);
             actividadContenedora.irAFragmentRanking();
         }
     }
 
     private void ObtenerReferencias() {
+        tvTime = (TextView) layoutRoot.findViewById(R.id.tvTime);
         mMapView = (MapView) layoutRoot.findViewById(R.id.mapView);
         btn01 = (Button) layoutRoot.findViewById(R.id.btn01);
         btn02 = (Button) layoutRoot.findViewById(R.id.btn02);
@@ -141,6 +188,10 @@ public class GameFragment extends PrimaryFragment {
         @SuppressLint("MissingPermission")
         @Override
         public void onMapReady(GoogleMap mMap) {
+            if (googleMap != null){
+                googleMap.clear();
+            }
+
             googleMap = mMap;
             googleMap.getUiSettings().setZoomGesturesEnabled(false);
             googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
@@ -148,9 +199,10 @@ public class GameFragment extends PrimaryFragment {
             MarkerOptions markerCorrecta = new MarkerOptions()
                     .position(coordsCorrectas);
             googleMap.addMarker(markerCorrecta);
+            contador.start();
 
             CameraPosition cameraPosition;
-            cameraPosition = new CameraPosition.Builder().target(coordsCorrectas).zoom(8).build();
+            cameraPosition = new CameraPosition.Builder().target(coordsCorrectas).zoom(5).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         }
@@ -240,11 +292,15 @@ public class GameFragment extends PrimaryFragment {
             super.onPostExecute(resultado);
             Log.d("AccesoAPI", "OnPostExecute");
             Log.d("AccesoAPI", resultado);
-
-            Gson datosCiudades = new Gson();
-            ciudades = datosCiudades.fromJson(resultado, ciudadType);
+            cargarDatos(resultado);
             Log.d("AccesoAPI", ciudades.toString());
             Juego();
+        }
+
+        public void cargarDatos(String strResult){
+            Gson datosCiudades = new Gson();
+            ciudades = datosCiudades.fromJson(strResult, ciudadType);
+            Sesion.listaPlayers.add(playerActual);
         }
 
 

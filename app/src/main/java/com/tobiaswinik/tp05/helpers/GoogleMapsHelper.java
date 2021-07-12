@@ -1,4 +1,4 @@
-package com.tobiaswinik.tp05;
+package com.tobiaswinik.tp05.helpers;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
