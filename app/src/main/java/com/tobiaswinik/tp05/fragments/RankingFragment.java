@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class RankingFragment extends PrimaryFragment {
     View layoutRoot;
     ListView lvRanking;
     ArrayList<Jugador> listaRecibida;
+    Button btnVolver;
 
     public RankingFragment() {
         listaRecibida = Sesion.listaPlayers;

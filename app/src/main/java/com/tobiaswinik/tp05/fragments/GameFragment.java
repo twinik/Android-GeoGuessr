@@ -79,7 +79,7 @@ public class GameFragment extends PrimaryFragment {
 
             @Override
             public void onFinish() {
-                if (tvTime != null){
+                if (tvTime != null && jugadas < 10){
                     duration = 5;
                     Toast.makeText(getActivity(), "SE ACABO EL TIEMPO", Toast.LENGTH_SHORT).show();
                     SystemClock.sleep(1000);
