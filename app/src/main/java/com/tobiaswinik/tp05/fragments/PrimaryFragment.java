@@ -16,6 +16,7 @@ public class PrimaryFragment extends Fragment {
     public void setearTitulo(String strTitulo) {
         MainActivity actividadContenedora;
         actividadContenedora = (MainActivity) getActivity();
+        assert actividadContenedora != null;
         actividadContenedora.setTitle(strTitulo);
     }
 }

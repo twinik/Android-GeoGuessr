@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import com.tobiaswinik.tp05.MainActivity;
 import com.tobiaswinik.tp05.R;
+import com.tobiaswinik.tp05.Sesion;
 
 public class ObjectiveFragment extends PrimaryFragment {
 
     View layoutRoot;
     Button btnComenzar, btnRanking;
-    ListView lvRanking;
     TextView tvNombre;
     String strNombreMostrado;
 
@@ -37,7 +37,8 @@ public class ObjectiveFragment extends PrimaryFragment {
         SetearListeners();
         if (layoutRoot != null){
             Log.d("Test", strNombreMostrado);
-            tvNombre.setText("Buuenas " + strNombreMostrado);
+            String saludo = "Buenas " + Sesion.nombreActual;
+            tvNombre.setText(saludo);
         }
 
         this.setearTitulo("Objetivo");
