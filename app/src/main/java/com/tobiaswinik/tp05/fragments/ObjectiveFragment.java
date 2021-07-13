@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tobiaswinik.tp05.MainActivity;
 import com.tobiaswinik.tp05.R;
 import com.tobiaswinik.tp05.Sesion;
+import com.tobiaswinik.tp05.helpers.timerHelper;
 
 public class ObjectiveFragment extends PrimaryFragment {
 
@@ -54,7 +55,7 @@ public class ObjectiveFragment extends PrimaryFragment {
 
     private void SetearListeners() {
         btnComenzar.setOnClickListener(btnComenzar_Click);
-        //btnRanking.setOnClickListener(btnRanking_Click);
+        btnRanking.setOnClickListener(btnRanking_Click);
     }
 
     View.OnClickListener btnComenzar_Click = new View.OnClickListener() {
@@ -65,13 +66,13 @@ public class ObjectiveFragment extends PrimaryFragment {
         }
     };
 
-    /*View.OnClickListener btnRanking_Click = new View.OnClickListener() {
+    View.OnClickListener btnRanking_Click = new View.OnClickListener() {
         @Override
         public void onClick(View V){
             MainActivity actividadContenedora = (MainActivity) getActivity();
-            actividadContenedora.irAFragmentRanking(listaJugadores);
+            actividadContenedora.irAFragmentRanking();
         }
-    };*/
+    };
 
     public void setMensaje(String strMensaje){
         strNombreMostrado = strMensaje;

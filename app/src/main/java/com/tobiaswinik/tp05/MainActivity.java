@@ -57,15 +57,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irAFragmentObjective(){
-        reemplazarFragment(fragmentObjective, true);
+        reemplazarFragment(fragmentObjective, false);
     }
 
     public void irAFragmentGame(){
-        reemplazarFragment(fragmentGame, true);
+        reemplazarFragment(fragmentGame, false);
     }
 
     public void irAFragmentRanking(){
-        reemplazarFragment(fragmentRanking, true);
+        reemplazarFragment(fragmentRanking, false);
+    }
+
+    public void irAFragmentName(){
+        reemplazarFragment(fragmentName, false);
     }
 
 }

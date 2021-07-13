@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.tobiaswinik.tp05.MainActivity;
 import com.tobiaswinik.tp05.R;
 import com.tobiaswinik.tp05.Sesion;
 import com.tobiaswinik.tp05.adapters.JugadorAdapter;
@@ -35,7 +36,7 @@ public class RankingFragment extends PrimaryFragment {
     Button btnVolver;
 
     public RankingFragment() {
-        listaRecibida = Sesion.listaPlayers;
+
     }
 
     @Override
@@ -45,6 +46,7 @@ public class RankingFragment extends PrimaryFragment {
         if (layoutRoot == null){
             layoutRoot = inflater.inflate(R.layout.fragment_ranking, container, false);
             ObtenerReferencias();
+            SetearListener();
         }
         CargarDatos();
         this.setearTitulo("Ranking");
@@ -52,8 +54,22 @@ public class RankingFragment extends PrimaryFragment {
         return layoutRoot;
     }
 
+    private void SetearListener() {
+        btnVolver.setOnClickListener(btnVolver_Click);
+    }
+
+    View.OnClickListener btnVolver_Click = new View.OnClickListener() {
+        @Override
+        public void onClick(View V){
+            Sesion.nombreActual = "";
+            MainActivity actividadContenedora = (MainActivity) getActivity();
+            actividadContenedora.irAFragmentName();
+        }
+    };
+
     private void ObtenerReferencias() {
         lvRanking = (ListView) layoutRoot.findViewById(R.id.lvRanking);
+        btnVolver = (Button) layoutRoot.findViewById(R.id.btnVolver);
     }
 
     private void CargarDatos(){
@@ -63,6 +79,5 @@ public class RankingFragment extends PrimaryFragment {
         adapter = new JugadorAdapter(getContext(), R.layout.item_jugador, datosArrayList);
         lvRanking.setAdapter(adapter);
     }
-
 
 }

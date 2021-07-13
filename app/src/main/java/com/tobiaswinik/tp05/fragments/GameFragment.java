@@ -29,6 +29,7 @@ import com.tobiaswinik.tp05.R;
 import com.tobiaswinik.tp05.Sesion;
 import com.tobiaswinik.tp05.entities.Ciudad;
 import com.tobiaswinik.tp05.entities.Jugador;
+import com.tobiaswinik.tp05.helpers.timerHelper;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -55,6 +56,7 @@ public class GameFragment extends PrimaryFragment {
     Jugador playerActual;
     CountDownTimer contador;
     int duration;
+    timerHelper time;
 
 
     public GameFragment() {
@@ -100,6 +102,7 @@ public class GameFragment extends PrimaryFragment {
             layoutRoot = inflater.inflate(R.layout.fragment_juego, container, false);
             ObtenerReferencias();
             tareaAsync.execute();
+            time.starStop();
             mMapView.onCreate(savedInstanceState);
             mMapView.onResume(); // needed to get the map to display immediately
 
@@ -163,6 +166,8 @@ public class GameFragment extends PrimaryFragment {
 
         if (jugadas > 10){
             playerActual.Nombre = Sesion.nombreActual;
+            playerActual.Tiempo = time.getTimerText();
+            time.starStop();
             if (googleMap != null){
                 googleMap.clear();
                 contador.cancel();

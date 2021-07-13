@@ -44,7 +44,7 @@ public class JugadorAdapter extends ArrayAdapter<Jugador> {
 
         tvJugador.setText(Sesion.nombreActual);
         tvPuntaje.setText(String.valueOf(player.Puntaje));
-        tvTiempo.setText(String.valueOf(player.Tiempo));
+        tvTiempo.setText(player.Tiempo);
 
         return view;
     }
