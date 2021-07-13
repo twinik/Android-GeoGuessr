@@ -56,15 +56,13 @@ public class NameFragment extends PrimaryFragment {
         @Override
         public void onClick(View V){
             String strNombre;
-
             MainActivity actividadContenedora = (MainActivity) getActivity();
-
+            //if (!Sesion.primeraVez){
+            //    edtNombre.getText().clear();
+            //}
             strNombre = edtNombre.getText().toString();
-
             Sesion.nombreActual = strNombre;
-
             Log.d("Test", strNombre);
-
             actividadContenedora.irAFragmentObjective();
         }
     };

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irAFragmentGame(){
-        reemplazarFragment(fragmentGame, false);
+        crearFragmentJuego();
     }
 
     public void irAFragmentRanking(){
@@ -70,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void irAFragmentName(){
         reemplazarFragment(fragmentName, false);
+    }
+
+    public void crearFragmentJuego(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        GameFragment fragment = new GameFragment();
+        transaction.replace(R.id.frameContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

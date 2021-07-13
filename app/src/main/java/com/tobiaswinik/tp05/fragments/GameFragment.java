@@ -81,7 +81,7 @@ public class GameFragment extends PrimaryFragment {
 
             @Override
             public void onFinish() {
-                if (tvTime != null && jugadas < 10){
+                if (tvTime != null && jugadas < 10 && getActivity() != null){
                     duration = 5;
                     Toast.makeText(getActivity(), "SE ACABO EL TIEMPO", Toast.LENGTH_SHORT).show();
                     SystemClock.sleep(1000);
@@ -167,6 +167,8 @@ public class GameFragment extends PrimaryFragment {
         if (jugadas > 10){
             playerActual.Nombre = Sesion.nombreActual;
             playerActual.Tiempo = time.getTimerText();
+            Sesion.primeraVez = false;
+            Log.d("Acceso API", String.valueOf(Sesion.primeraVez));
             time.starStop();
             if (googleMap != null){
                 googleMap.clear();

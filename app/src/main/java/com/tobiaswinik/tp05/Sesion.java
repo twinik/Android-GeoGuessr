@@ -7,4 +7,5 @@ import java.util.ArrayList;
 public class Sesion {
     public static String nombreActual;
     public static ArrayList<Jugador> listaPlayers;
+    public static boolean primeraVez = true;
 }
